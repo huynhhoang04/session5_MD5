@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_PASSWORD=secret
+  
+  quickbite-gateway:
+    image: quickbite-gateway-service:latest
+    ports:
+      - "8080:8080"
