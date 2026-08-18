@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  quickbite-user:
+    image: quickbite-user-service:latest
+    container_name: quickbite-user
+    ports:
+      - "${USER_SERVER_PORT}:${USER_SERVER_PORT}"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${USER_DB_USERNAME}
+      - DB_PASSWORD=${USER_DB_PASSWORD}
+      - DB_NAME=${USER_DB_NAME}
+    networks:
+      - quickbite-net
+
+  quickbite-restaurant:
+    image: quickbite-restaurant-service:latest
+    container_name: quickbite-restaurant
+    ports:
+      - "${RESTAURANT_SERVER_PORT}:${RESTAURANT_SERVER_PORT}"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${RESTAURANT_DB_USERNAME}
+      - DB_PASSWORD=${RESTAURANT_DB_PASSWORD}
+      - DB_NAME=${RESTAURANT_DB_NAME}
+    networks:
+      - quickbite-net
+
+  quickbite-order:
+    image: quickbite-order-service:latest
+    container_name: quickbite-order
+    ports:
+      - "${ORDER_SERVER_PORT}:${ORDER_SERVER_PORT}"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${ORDER_DB_USERNAME}
+      - DB_PASSWORD=${ORDER_DB_PASSWORD}
+      - DB_NAME=${ORDER_DB_NAME}
+    networks:
+      - quickbite-net
+
+  quickbite-notification:
+    image: quickbite-notification-service:latest
+    container_name: quickbite-notification
+    ports:
+      - "${NOTIFICATION_SERVER_PORT}:${NOTIFICATION_SERVER_PORT}"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${NOTIFICATION_DB_USERNAME}
+      - DB_PASSWORD=${NOTIFICATION_DB_PASSWORD}
+      - DB_NAME=${NOTIFICATION_DB_NAME}
+    networks:
+      - quickbite-net
+
+networks:
+  quickbite-net:
+    external: true
