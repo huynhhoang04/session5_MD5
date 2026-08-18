@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Thêm Gateway làm cổng ra vào duy nhất
+  quickbite-gateway:
+    image: quickbite-gateway-service:latest
+    container_name: quickbite-gateway
+    ports:
+      - "${GATEWAY_SERVER_PORT:-8080}:${GATEWAY_SERVER_PORT:-8080}"
+    networks:
+      - quickbite-net
+
+  quickbite-user:
+    image: quickbite-user-service:latest
+    container_name: quickbite-user
+    # ĐÓNG CỔNG NGOÀI, CHỈ MỞ NỘI BỘ
+    expose:
+      - "8081"
+    networks:
+      - quickbite-net
+
+  quickbite-restaurant:
+    image: quickbite-restaurant-service:latest
+    container_name: quickbite-restaurant
+    expose:
+      - "8082"
+    networks:
+      - quickbite-net
+
+  quickbite-order:
+    image: quickbite-order-service:latest
+    container_name: quickbite-order
+    expose:
+      - "8083"
+    networks:
+      - quickbite-net
+
+  quickbite-notification:
+    image: quickbite-notification-service:latest
+    container_name: quickbite-notification
+    expose:
+      - "8084"
+    networks:
+      - quickbite-net
+
+networks:
+  quickbite-net:
+    external: true

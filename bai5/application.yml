@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://quickbite-user:8081
+          predicates:
+            - Path=/api/v1/users/**
+
+        - id: restaurant-service
+          uri: http://quickbite-restaurant:8082
+          predicates:
+            - Path=/api/v1/restaurants/**
+
+        - id: order-service
+          uri: http://quickbite-order:8083
+          predicates:
+            - Path=/api/v1/orders/**
+
+        - id: notification-service
+          uri: http://quickbite-notification:8084
+          predicates:
+            - Path=/api/v1/notifications/**
